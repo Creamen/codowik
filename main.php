@@ -32,7 +32,15 @@ $showSidebar = $hasSidebar && ($ACT=='show');
     <?php echo tpl_favicon(array('favicon', 'mobile')) ?>
     <?php tpl_includeFile('meta.html') ?>
 
-<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+<?php
+	if( isset($_SERVER['HTTP_X_REQUEST_SCHEME']) ) {
+		$_scheme = $_SERVER['HTTP_X_REQUEST_SCHEME'];
+	} else if ( isset($_SERVER['REQUEST_SCHEME']) ) {
+		$_scheme =  $_SERVER['REQUEST_SCHEME'];
+	} else $_scheme = 'https';
+	printf("<link href='%s://fonts.googleapis.com/css?family=Lato\n' rel='stylesheet' type='text/css'>", $_scheme);
+	unset($_scheme);
+?>
 <link href="<?php print DOKU_TPL; ?>css/ui.layout.css?v=2.1" rel="stylesheet">
 
 <?php echo tpl_js('layout.js'); ?>
